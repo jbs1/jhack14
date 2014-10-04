@@ -1,11 +1,51 @@
 from classes import *
-from rooms import *
-from random import seed,randint
-import socket
 
 fillwords = ["the", "with", "on", "that", "at"]
 tokens = []
- 
+
+room = rooms['opening']
+lord = Entity("The Black Lord")
+
+
+def changeRoom(new_room):
+	global room
+	if new_room == None:
+		print("You can't go there.")
+		return
+	if new_room.travers_desc==None:
+		print(new_room.desc)
+		room = new_room
+	else:
+		print(new_room.travers_desc)
+
+def move(direction):
+	if direction in ["north", "n"]:
+		changeRoom(room.north)
+	elif direction in ["east", "e"]:
+		changeRoom(room.east)
+	elif direction in ["south", "s"]:
+		changeRoom(room.south)
+	elif direction in ["west", "w"]:
+		changeRoom(room.west)
+
+def attack(target):
+	global player
+	if randint(1,10)/10 <= player.gethitc():
+		if randint(1,3) == 2:
+			print("CRITICAL HIT!")
+			target.attack(45)
+		else:
+			target.attack(20)
+
+def defend(enemy):
+	global player
+	if randint(1,10)/10 <= enemy.hitchance:
+		if randint(1,3) == 2:
+			print("CRITICAL HIT!")
+			target.attack(35)
+		else:
+			target.attack(15)
+
 def nextToken():
 	global tokens
 	if not tokens:
@@ -44,28 +84,6 @@ def pItem(op):
 		elif op == "drop":
 			room.add_item(player.drop_item(item)) 	# drop
 
-def changeRoom(new_room):
-	global room
-	if new_room == None:
-		print("You can't go there.")
-		return
-	if new_room.travers_desc==None:
-		print(new_room.desc)
-		room = new_room
-	else:
-		print(new_room.travers_desc)
-
-
-def move(direction):
-	if direction in ["north", "n"]:
-		changeRoom(room.north)
-	elif direction in ["east", "e"]:
-		changeRoom(room.east)
-	elif direction in ["south", "s"]:
-		changeRoom(room.south)
-	elif direction in ["west", "w"]:
-		changeRoom(room.west)
-
 def pDirection():
 	direction = nextToken()
 	while direction in fillwords:
@@ -75,24 +93,6 @@ def pDirection():
 		move(direction)
 	else:
 		print("I can't go there.")
-
-def attack(target):
-	global player
-	if randint(1,10)/10 <= player.gethitc():
-		if randint(1,3) == 2:
-			print("CRITICAL HIT!")
-			target.attack(45)
-		else:
-			target.attack(20)
-
-def defend(enemy):
-	global player
-	if randint(1,10)/10 <= enemy.hitchance:
-		if randint(1,3) == 2:
-			print("CRITICAL HIT!")
-			target.attack(35)
-		else:
-			target.attack(15)
 
 def pTarget():
 	target = nextToken()
@@ -107,7 +107,10 @@ def pAccess(op):
 	obj = nextToken()
 	while obj in fillwords:
 		obj = nextToken()
-	obj.trigger(op)
+	if room.objects[obj]:
+		room.objects[obj].trigger(op)
+	else:
+		print("Can't ", op, "that.")
 
 def pOperation():
 	op = nextToken()
@@ -134,35 +137,3 @@ def pOperation():
 		pass
 	else:
 		print("I dont know that.")
-
-seed()
-room = rooms['opening']
-lord = Entity("The Black Lord")
-
-print("Textlive - a multiplayer text-adventure")
-print("---------------------------------------\n")
-player = Player(input("Please enter the name of your Character: ").strip())
-
-s = socket.socket()
-if input("Do you want to host a game? (default: no)\n>> ").strip().lower() in ["yes", "y"]:
-	print("hostname: ", socket.gethostbyname(socket.gethostname()))
-	s.bind((socket.gethostbyname(socket.gethostname()), 9555))
-	s.listen(3)
-
-	while True:
-		c, addr = s.accept()
-		print("connection from ", addr)
-		c.close()
-else:
-	host = input("Enter Host Adress: ")
-	print(host)
-	s.connect((host, 9555))
-	s.close()
-
-print("---------------------------------------\n\n")
-print(room.desc)
-print("What do you do?")
-
-while True:
-    readCmd()
-    pOperation()
