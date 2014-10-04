@@ -17,6 +17,12 @@ def changeRoom(new_room):
 	if new_room.travers_desc==None:
 		print(new_room.desc)
 		room = new_room
+		for i in room.items:
+			print(room.items[i].desc)
+		for i in room.objects:
+			print(room.objects[i].desc)
+		for i in room.entities:
+			print(room.entities[i].desc)
 	else:
 		print(new_room.travers_desc)
 
@@ -71,6 +77,7 @@ def pObject(op):
 		room.inspect_obj(obj)
 
 def pItem(op):
+	global player
 	item = nextToken()
 	while item in fillwords:
 		item = nextToken()
@@ -109,11 +116,11 @@ def pAccess(op):
 	obj = nextToken()
 	while obj in fillwords:
 		obj = nextToken()
-	if room.objects[obj]:
+	if obj in room.objects.keys():
 		room.objects[obj].trigger(op)
 	else:
 		print("Can't ", op, "that.")
-	room.objects[obj].trigger(op)
+	
 
 def pOperation():
 	op = nextToken()
@@ -124,8 +131,14 @@ def pOperation():
 		pDirection()
 	elif op in ["north", "east", "south", "west", "n", "e", "s", "w"]:
 		move(op)
-	elif op == "look":
+	elif op in ["look", "l"]:
 		print(room.desc)
+		for i in room.items:
+			print(room.items[i].desc)
+		for i in room.objects:
+			print(room.objects[i].desc)
+		for i in room.entities:
+			print(room.entities[i].desc)
 	elif op == "read":
 		pObject(op)
 	elif op == "take":

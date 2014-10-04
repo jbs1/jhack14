@@ -1,9 +1,10 @@
 class Room:
 	"""docstring for room"""
-	def __init__(self, desc, items = {}, objects = {}, travers_desc=None, north=None, south=None, west=None, east=None):
+	def __init__(self, desc, items = {}, objects = {}, entities = {}, travers_desc=None, north=None, south=None, west=None, east=None):
 		self.desc = desc
 		self.items = items
 		self.objects = objects
+		self.entities = entities
 		self.west = west
 		self.east = east
 		self.north = north
@@ -25,7 +26,7 @@ class Room:
 		return tmp
 
 	def inspect_obj(self,obj):		#obj=string
-		print(self.objects[obj].desc)
+		print(self.objects[obj].data)
 
 	def add_room(self, direction, room, travers_desc=None):
 		if direction == "north":
