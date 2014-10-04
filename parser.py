@@ -49,9 +49,12 @@ def changeRoom(new_room):
 	if new_room == None:
 		print("You can't go there.")
 		return
-	print(new_room.desc)
-	if new_room.traversable:
+	if new_room.travers_desc=None:
+		print(new_room.desc)
 		room = new_room
+	else:
+		print(new_room.travers_desc)
+
 
 def move(direction):
 	if direction in ["north", "n"]:

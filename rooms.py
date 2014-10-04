@@ -11,9 +11,15 @@ opening_e = Room('You are standing infront of an inpassable jungle. There is not
 opening_e.add_room("west", opening)
 opening.add_room("east", opening_e)
 
-opening_s = Room('There is a small shed at the side of the road. The door barely hangs in its place.', {}, {})
+door=Object('door','The door is barely hangs in its place', None, 'You door explodes under your force', None, shed)
+opening_s = Room('There is a small shed at west side of the road.', {}, {'door':door})
 opening_s.add_room("north", opening)
+opening_s.add_room("west", shed)
 opening.add_room("south", opening_s)
+
+lamp = Object('Lamp', 'An old and rusty oil lamp.', False)
+shed = Room('In the dim light from outside you can see a small and dirty room.', {'lamp':lamp}, {}, 'The broken door blocks the entrace')
+shed.add_room("east",opening_s);
 
 cave_entrance = Room("It's to dark to see anything.")
 cave_entrance.add_room("south", opening)
