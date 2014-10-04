@@ -1,6 +1,7 @@
 from classes import *
 from rooms import *
 from random import seed,randint
+import socket
 
 fillwords = ["the", "with", "on", "that", "at"]
 tokens = []
@@ -103,7 +104,6 @@ def pTarget():
 		print("I can't attack that.")
 
 def pAccess(op):
-	# break / open _what_
 	obj = nextToken()
 	while obj in fillwords:
 		obj = nextToken()
@@ -140,6 +140,22 @@ lord = Entity("The Black Lord")
 print("Textlive - a multiplayer text-adventure")
 print("---------------------------------------\n")
 player = Player(input("Please enter the name of your Character: ").strip())
+
+s = socket.socket()
+if input("Do you want to host a game? (default: no)\n>> ").strip().lower() in ["yes", "y"]:
+	print("hostname: ", socket.gethostbyname(socket.gethostname()))
+	s.bind((socket.gethostbyname(socket.gethostname()), 9555))
+	s.listen(3)
+
+	while True:
+		c, addr = s.accept()
+		print("connection from ", addr)
+		c.close()
+else:
+	host = input("Enter Host Adress: ")
+	print(host)
+	s.connect((host, 9555))
+	s.close()
 
 print("---------------------------------------\n\n")
 print(room.desc)
