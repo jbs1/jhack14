@@ -9,7 +9,8 @@ def nextToken():
 
 def readCmd():
     global tokens
-    line = input('You are standing infront of a cave. To the left is a sign.\n What do you do? \n>> ')
+    line = input('>> ')
+
     tokens = line.strip().lower().split()
 
 def pObject(op):
@@ -105,6 +106,7 @@ room = rooms['opening']
 print("Textlive - a multiplayer text-adventure")
 print("---------------------------------------\n")
 print(room.desc)
+print("What do you do?")
 
 while True:
     readCmd()

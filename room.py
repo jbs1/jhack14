@@ -18,3 +18,13 @@ class Room:
 		return tmp
 	def inspect_obj(self,obj):		#obj=string
 		print(self.objects[obj].desc)
+
+	def add_room(direction, room):
+		if direction == "north":
+			north = room
+		elif direction == "east":
+			east = room
+		elif direction == "south":
+			south = room
+		elif direction == "west":
+			west = room
