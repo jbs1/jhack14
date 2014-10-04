@@ -1,5 +1,8 @@
 from classes import *
 from rooms import *
+from random import seed,randint
+
+random.seed()
 
 fillwords = ["the", "with", "on", "that", "at"]
 tokens = []
@@ -67,8 +70,27 @@ def pDirection():
 		print("I can't go there.")
 
 def attack(target):
-	# roll the dice * hitchance
-	return None
+	global player
+
+	if randint(1,10)/10 <= player.gethitc():
+		if randint(1,3) == 2:
+			print("CRITICAL HIT!")
+			target.attack(45)
+		else:
+			target.attack(20)
+
+def defend(enemy):
+	global player
+
+	if randint(1,10)/10 <= enemy.hitchance:
+		if randint(1,3) == 2:
+			print("CRITICAL HIT!")
+			target.attack(35)
+		else:
+			target.attack(15)
+
+
+
 
 def pTarget():
 	global fillwords
@@ -103,11 +125,22 @@ def pOperation():
 
 room = rooms['opening']
 
+lord = Entity("The Black Lord")
+
 print("Textlive - a multiplayer text-adventure")
 print("---------------------------------------\n")
+player = Player(input("Please enter the name of your Character."))
+print("---------------------------------------\n\n")
 print(room.desc)
 print("What do you do?")
 
 while True:
     readCmd()
     pOperation()
+
+
+
+
+
+
+
