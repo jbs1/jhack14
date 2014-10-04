@@ -9,7 +9,6 @@ room = rooms['opening']
 player = Player("")
 lord = Entity("The Black Lord")
 
-
 def changeRoom(new_room):
 	global room
 	if new_room == None:
