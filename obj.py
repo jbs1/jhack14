@@ -11,15 +11,15 @@ class Object:
 		self.data = newdata
 	def trigger(self,op):
 		if op=="break": 
-			if break_d==None:
+			if self.break_d==None:
 				print("You can't break this")
 			else:
-				print(break_d)
-				blocking.open_access();
+				print(self.break_d)
+				self.blocking.open_access();
 
 		if op=="open": 
-			if open_d==None:
+			if self.open_d==None:
 				print("You can't open this")
 			else:
-				print(open_d)
-				blocking.open_access();
+				print(self.open_d)
+				self.blocking.open_access();
