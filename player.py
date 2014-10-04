@@ -8,8 +8,8 @@ class Player:
 		self.inventory = {}
 	def gethitc(self):
 		hc = self.hitchance
-		for "Sword" in inventory:
-			hc+=0.4
+		if inventory['Sword']:
+			hc += 0.4
 		return hc
 	def take_item(self,item):#take_item(room.remove_item('something'))
 		inventory[item.name] = item
@@ -23,9 +23,11 @@ class Player:
 		self.health = self.health-dmg
 		print("You were hurt!")
 		check_health()
-"""	def gain_health(self,heal):
+
+	"""	def gain_health(self,heal):
 		self.health = self.health+heal
 		print("You were healed!")"""
+
 	def check_health(self):
 		if self.health == 100:
 			print("You are fully healed.")

@@ -2,8 +2,6 @@ from classes import *
 from rooms import *
 from random import seed,randint
 
-random.seed()
-
 fillwords = ["the", "with", "on", "that", "at"]
 tokens = []
  
@@ -13,7 +11,6 @@ def nextToken():
 def readCmd():
     global tokens
     line = input('>> ')
-
     tokens = line.strip().lower().split()
 
 def pObject(op):
@@ -71,7 +68,6 @@ def pDirection():
 
 def attack(target):
 	global player
-
 	if randint(1,10)/10 <= player.gethitc():
 		if randint(1,3) == 2:
 			print("CRITICAL HIT!")
@@ -81,16 +77,12 @@ def attack(target):
 
 def defend(enemy):
 	global player
-
 	if randint(1,10)/10 <= enemy.hitchance:
 		if randint(1,3) == 2:
 			print("CRITICAL HIT!")
 			target.attack(35)
 		else:
 			target.attack(15)
-
-
-
 
 def pTarget():
 	global fillwords
@@ -123,13 +115,14 @@ def pOperation():
 	else:
 		print("I dont know that.")
 
+seed()
 room = rooms['opening']
-
 lord = Entity("The Black Lord")
 
 print("Textlive - a multiplayer text-adventure")
 print("---------------------------------------\n")
-player = Player(input("Please enter the name of your Character."))
+player = Player(input("Please enter the name of your Character: ").strip())
+
 print("---------------------------------------\n\n")
 print(room.desc)
 print("What do you do?")
