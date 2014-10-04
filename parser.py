@@ -48,7 +48,7 @@ def changeRoom(new_room):
 	if new_room == None:
 		print("You can't go there.")
 		return
-	if new_room.travers_desc=None:
+	if new_room.travers_desc==None:
 		print(new_room.desc)
 		room = new_room
 	else:
