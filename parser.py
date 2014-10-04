@@ -45,6 +45,10 @@ def pItem(op):
 			room.add_item(player.drop_item(item)) 	# drop
 
 def changeRoom(new_room):
+	global room
+	if new_room == None:
+		print("You can't go there.")
+		return
 	print(new_room.desc)
 	if new_room.traversable:
 		room = new_room
@@ -107,6 +111,8 @@ def pOperation():
 		pDirection()
 	elif op in ["north", "east", "south", "west", "n", "e", "s", "w"]:
 		move(op)
+	elif op == "look":
+		print(room.desc)
 	elif op == "read":
 		pObject(op)
 	elif op == "take":

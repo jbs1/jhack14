@@ -1,6 +1,6 @@
 class Room:
 	"""docstring for room"""
-	def __init__(self, desc, items = {}, objects = {}, north=None, south=None, west=None, east=None):
+	def __init__(self, desc, items = {}, objects = {}, traversable=True, north=None, south=None, west=None, east=None):
 		self.desc = desc
 		self.items = items
 		self.objects = objects
@@ -8,6 +8,7 @@ class Room:
 		self.east = east
 		self.north = north
 		self.south = south
+		self.traversable = traversable
 	
 	def add_item(self,item):		#add_item(player.drop_item('something'))
 		items[item.name]=item
@@ -24,10 +25,10 @@ class Room:
 
 	def add_room(self, direction, room):
 		if direction == "north":
-			north = room
+			self.north = room
 		elif direction == "east":
-			east = room
+			self.east = room
 		elif direction == "south":
-			south = room
+			self.south = room
 		elif direction == "west":
-			west = room
+			self.west = room
