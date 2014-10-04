@@ -1,6 +1,6 @@
 class Entity:
 	"""docstring for entity"""
-	def __init__(self, name, health = 100,hitchance = 0.3):
+	def __init__(self, name, health = 100,hitchance = 0.5):
 		self.name = name
 		self.health = health
 		self.hitchance = hitchance
