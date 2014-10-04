@@ -59,7 +59,6 @@ class entity:
 			print(self.name,"was killed by you. Good job!")
 
 
-
 class room:
 	"""docstring for room"""
 	def __init__(self, desc, items=[], obj=[]):
@@ -70,9 +69,29 @@ class room:
 		self.items.append(item)
 		print("You dropped ")
 	def remove_item(self,item):
-		self.items.remove(item)
+		self.items.index(item)
 		print("You took ")
-	
+
+	def inspect_obj(self,obj):
+		print("OBJECT DATA")
+
+
+class item:
+	""" docstring from item"""
+	def __init__(self,name):
+		self.name=name
+
+class object:
+	""" xxx """
+	def __init__(self,name,data=None):
+		self.name=name
+		self.data=data
+	def change_data(self,newdata):
+		self.data=newdata
+
+
+
+		
 
 p=player("jbs")
 print(p.health)
