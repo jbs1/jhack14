@@ -16,6 +16,5 @@ class Room:
 		tmp = items[item]
 		del items[item]
 		return tmp
-	def inspect_obj(self,obj):
-		oi=self.objects.index(obj)
-		print(obj.data)
+	def inspect_obj(self,obj):#obj=string
+		print(objects[obj].data)
