@@ -8,6 +8,7 @@ tokens = []
 def nextToken():
 	global tokens
 	if not tokens:
+		print("I don't know that.")
 		return None
 	return tokens.pop(0)
 
@@ -17,7 +18,6 @@ def readCmd():
     tokens = line.strip().lower().split()
 
 def pObject(op):
-	global fillwords
 	obj = nextToken()
 	while obj in fillwords:
 		obj = nextToken()
@@ -28,7 +28,6 @@ def pObject(op):
 		room.inspect_obj(obj)
 
 def pItem(op):
-	global fillwords
 	item = nextToken()
 	while item in fillwords:
 		item = nextToken()
@@ -92,7 +91,6 @@ def defend(enemy):
 			target.attack(15)
 
 def pTarget():
-	global fillwords
 	target = nextToken()
 	while target in fillwords:
 		target = nextToken()
@@ -101,8 +99,14 @@ def pTarget():
 	else:
 		print("I can't attack that.")
 
+def pAccess(op):
+	# break / open _what_
+	obj = nextToken()
+	while obj in fillwords:
+		obj = nextToken()
+	obj.trigger(op)
+
 def pOperation():
-	global fillwords
 	op = nextToken()
 	while op in fillwords:
 		op = nextToken()
@@ -121,6 +125,8 @@ def pOperation():
 		pTarget()
 	elif op == "drop":
 		pItem(op)
+	elif op in ["break", "open"]:
+		pAccess(op)
 	else:
 		print("I dont know that.")
 
