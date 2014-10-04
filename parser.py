@@ -6,6 +6,9 @@ fillwords = ["the", "with", "on", "that", "at"]
 tokens = []
  
 def nextToken():
+	global tokens
+	if not tokens:
+		return None
 	return tokens.pop(0)
 
 def readCmd():
@@ -130,10 +133,3 @@ print("What do you do?")
 while True:
     readCmd()
     pOperation()
-
-
-
-
-
-
-
