@@ -1,5 +1,7 @@
 from classes import *
 from rooms import *
+from random import seed,randint
+
 
 fillwords = ["the", "with", "on", "that", "at"]
 tokens = []
@@ -49,7 +51,7 @@ def move(direction):
 	if direction in ["north", "n"]:
 		changeRoom(room.north)
 	elif direction in ["east", "e"]:
-		changeRoom(room.north)
+		changeRoom(room.east)
 	elif direction in ["south", "s"]:
 		changeRoom(room.south)
 	elif direction in ["west", "w"]:
@@ -66,8 +68,13 @@ def pDirection():
 		print("I can't go there.")
 
 def attack(target):
-	# roll the dice * hitchance
-	return None
+	return True
+
+def defend(enemy):
+	return True
+
+
+
 
 def pTarget():
 	global fillwords
