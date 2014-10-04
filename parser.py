@@ -107,7 +107,7 @@ def pAccess(op):
 	obj = nextToken()
 	while obj in fillwords:
 		obj = nextToken()
-	obj.trigger(op)
+	room.objects[obj].trigger(op)
 
 def pOperation():
 	op = nextToken()
