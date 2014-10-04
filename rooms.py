@@ -1,6 +1,7 @@
+from classes import *
 
-sign = object('sign', 'Den of Evil', '')
-opening = room('Your are standing somewhere.', {}, {'sign' : sign});
+sign = Object('sign', 'Den of Evil', '')
+opening = Room('Your are standing somewhere.', {}, {'sign' : sign});
 
 rooms = {
 	'opening' : opening

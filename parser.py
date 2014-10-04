@@ -21,7 +21,7 @@ def pObject(op):
 		print("You can't ", op, " that.")
 		return
 	if op == "read":
-		print(room.getObject(obj).description)
+		room.inspect_obj(obj)
 
 def pItem(op):
 	global fillwords
@@ -86,17 +86,17 @@ def pOperation():
 		op = nextToken()
 
 	if op == "go":
-		direction()
+		pDirection()
 	elif op in ["nort", "east", "south", "west", "n", "e", "s", "w"]:
 		move(op)
 	elif op == "read":
-		object(op)
+		pObject(op)
 	elif op == "take":
-		item(op)
+		pItem(op)
 	elif op == "attack":
-		target()
+		pTarget()
 	elif op == "drop":
-		item(op)
+		pItem(op)
 	else:
 		print("I dont know that.")
 
@@ -108,4 +108,4 @@ print(room.desc)
 
 while True:
     readCmd()
-    operation()
+    pOperation()

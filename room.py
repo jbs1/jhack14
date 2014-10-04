@@ -17,4 +17,4 @@ class Room:
 		del items[item]
 		return tmp
 	def inspect_obj(self,obj):		#obj=string
-		print(objects[obj].data)
+		print(self.objects[obj].desc)
