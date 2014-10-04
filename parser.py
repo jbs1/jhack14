@@ -39,7 +39,7 @@ def pItem(op):
 		if op == "take":
 			print("I already have that.")
 		elif op == "drop":
-			player.drop_item(item) 	# drop
+			room.add_item(player.drop_item(item)) 	# drop
 
 def changeRoom(new_room):
 	print(new_room.desc)
@@ -50,7 +50,7 @@ def move(direction):
 	if direction in ["north", "n"]:
 		changeRoom(room.north)
 	elif direction in ["east", "e"]:
-		changeRoom(room.north)
+		changeRoom(room.east)
 	elif direction in ["south", "s"]:
 		changeRoom(room.south)
 	elif direction in ["west", "w"]:
@@ -61,7 +61,7 @@ def pDirection():
 	while direction in fillwords:
 		direction = nextToken()
 
-	if direction in ["nort", "east", "south", "west", "n", "e", "s", "w"]:
+	if direction in ["north", "east", "south", "west", "n", "e", "s", "w"]:
 		move(direction)
 	else:
 		print("I can't go there.")
@@ -88,7 +88,7 @@ def pOperation():
 
 	if op == "go":
 		pDirection()
-	elif op in ["nort", "east", "south", "west", "n", "e", "s", "w"]:
+	elif op in ["north", "east", "south", "west", "n", "e", "s", "w"]:
 		move(op)
 	elif op == "read":
 		pObject(op)
