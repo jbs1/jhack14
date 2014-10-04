@@ -130,6 +130,8 @@ def pOperation():
 		pItem(op)
 	elif op in ["break", "open"]:
 		pAccess(op)
+	elif op == None:
+		pass
 	else:
 		print("I dont know that.")
 
