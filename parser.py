@@ -1,8 +1,10 @@
 from classes import *
+from random import seed, randint
 
 fillwords = ["the", "with", "on", "that", "at"]
 tokens = []
 
+seed()
 room = rooms['opening']
 lord = Entity("The Black Lord")
 
