@@ -6,6 +6,7 @@ tokens = []
 
 seed()
 room = rooms['opening']
+player = Player("")
 lord = Entity("The Black Lord")
 
 

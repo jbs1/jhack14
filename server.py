@@ -1,7 +1,7 @@
 import socket
 import netifaces as ni
 
-MSG_LEN = 1024
+MSG_LEN = 4096
 clients = []
 sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 
@@ -15,8 +15,10 @@ def receive(client):
 	return client.recv(MSG_LEN).decode()
 
 def handleConnection(client):
-	name = receive(client)
-	print("received player name: ", name)
+	while True:
+		msg = receive(client)
+
+		print("received player name: ", name)
 	client.close()
 	
 addrs = ni.ifaddresses('wlan0')
