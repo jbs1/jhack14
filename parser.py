@@ -111,6 +111,7 @@ def pAccess(op):
 		room.objects[obj].trigger(op)
 	else:
 		print("Can't ", op, "that.")
+	room.objects[obj].trigger(op)
 
 def pOperation():
 	op = nextToken()

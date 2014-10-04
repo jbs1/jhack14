@@ -4,6 +4,8 @@ class Object:
 		self.name = name
 		self.desc = desc
 		self.data = data
+		self.break_d = break_d
+		self.open_d = open_d
 		self.blocking = blocking
 	def change_data(self, newdata):
 		self.data = newdata
