@@ -12,7 +12,7 @@ def readCmd():
     line = input('You are standing infront of a cave. To the left is a sign.\n What do you do? \n>> ')
     tokens = line.strip().lower().split()
 
-def object(op):
+def pObject(op):
 	global fillwords
 	obj = nextToken()
 	while obj in fillwords:
@@ -23,7 +23,7 @@ def object(op):
 	if op == "read":
 		print(room.getObject(obj).description)
 
-def item(op):
+def pItem(op):
 	global fillwords
 	item = nextToken()
 	while item in fillwords:
@@ -55,7 +55,7 @@ def move(direction):
 	elif direction in ["west", "w"]:
 		changeRoom(room.west)
 
-def direction():
+def pDirection():
 	direction = nextToken()
 	while direction in fillwords:
 		direction = nextToken()
@@ -69,7 +69,7 @@ def attack(target):
 	# roll the dice * hitchance
 	return None
 
-def target():
+def pTarget():
 	global fillwords
 	target = nextToken()
 	while target in fillwords:
@@ -79,7 +79,7 @@ def target():
 	else:
 		print("I can't attack that.")
 
-def operation():
+def pOperation():
 	global fillwords
 	op = nextToken()
 	while op in fillwords:
@@ -100,7 +100,6 @@ def operation():
 	else:
 		print("I dont know that.")
 
-#room = room("Opening", ["leaves", "stick"], ["sign"])
 room = rooms['opening']
 
 print("Textlive - a multiplayer text-adventure")
