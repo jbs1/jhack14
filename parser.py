@@ -82,12 +82,12 @@ def pItem(op):
 	item = nextToken()
 	while item in fillwords:
 		item = nextToken()
-	if item in player.room.items: 			# room item
+	if item in player.room.items.keys(): 			# room item
 		if op == "take":
 			player.take_item(player.room.remove_item(item)) 	# pick up
 		elif op == "drop":
 			print("I can't drop stuff I didn't pick up.")
-	elif item in player.inventory:		# player inventory item
+	elif item in player.inventory.keys():		# player inventory item
 		if op == "take":
 			print("I already have that.")
 		elif op == "drop":

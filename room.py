@@ -11,13 +11,12 @@ class Room:
 		self.south = south
 		self.travers_desc = travers_desc
 	
-	def add_item(self,item):		#add_item(player.drop_item('something'))
-		self.items[item.name]=item
-	
 	def open_access(self):
 		self.travers_desc=None
 
-
+	def add_item(self,item):		#add_item(player.drop_item('something'))
+		self.items[item.name]=item
+	
 	def remove_item(self,item):		#item=str
 		tmp = self.items[item]
 		del self.items[item]
