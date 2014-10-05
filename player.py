@@ -11,13 +11,21 @@ class Player:
 		if inventory['Sword']:
 			hc += 0.4
 		return hc
+	def get_inv(self):
+		if self.inventory=={}:
+			print("Your inventory is empty. Get more stuff!")
+		else:
+			print("Your inventory:")
+			for i in self.inventory:
+				print(self.inventory[i].name)
+				
 	def take_item(self,item):#take_item(room.remove_item('something'))
-		inventory[item.name] = item
+		self.inventory[item.name] = item
 		print("Taking",item.name)
 	def drop_item(self,item):#item=string
 		print ("Dropping ",item)
-		tmp = inventory[item]
-		del inventory[item]
+		tmp = self.inventory[item]
+		del self.inventory[item]
 		return tmp
 	def lose_health(self,dmg):
 		self.health = self.health-dmg

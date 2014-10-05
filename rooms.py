@@ -18,7 +18,7 @@ lamp = Item('Lamp', 'An old and rusty oil lamp.', False)
 shed = Room('In the dim light from outside you can see a small and dirty room.', {'lamp':lamp}, {}, {}, 'The broken door blocks the entrance')
 
 door=Object('door','The door barely hangs in its place', None, None, 'The door explodes under your force.', None, shed)
-opening_s = Room('There is a small shed at west side of the road.', {}, {'door':door})
+opening_s = Room('There is a small shed at west side of the road. A path leads back to the north.', {}, {'door':door})
 door.set_room(opening_s)
 opening_s.add_room("north", opening)
 opening_s.add_room("west", shed)

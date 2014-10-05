@@ -82,17 +82,18 @@ def pItem(op):
 	item = nextToken()
 	while item in fillwords:
 		item = nextToken()
-
 	if item in room.items: 			# room item
 		if op == "take":
 			player.take_item(room.remove_item(item)) 	# pick up
 		elif op == "drop":
 			print("I can't drop stuff I didn't pick up.")
-	elif item in player.items:		# player inventory item
+	elif item in player.inventory:		# player inventory item
 		if op == "take":
 			print("I already have that.")
 		elif op == "drop":
 			room.add_item(player.drop_item(item)) 	# drop
+	else:
+		print("What item?")
 
 def pDirection():
 	direction = nextToken()
@@ -148,6 +149,8 @@ def pOperation():
 		pTarget()
 	elif op == "drop":
 		pItem(op)
+	elif op in ["i", "inventory", "inv"]:
+		player.get_inv()
 	elif op in ["break", "open"]:
 		pAccess(op)
 	elif op == None:
