@@ -28,39 +28,46 @@ def receive(client):
 def handleConnection(client):
 	while True:
 		msg = receive(client).strip().split()
+		msg_bak = msg
 		first = msg.pop(0)
 		if first == "CONNECT":
 			p = msg.pop(0)
 			players[p] = Player(p)
 			print("added player '", p, "'")
+			updateClients(msg_bak, client)
 		elif first == "DISCONNECT":
 			p = msg.pop(0)
 			del players[p]
 			print("removed player '", p, "'")
+			updateClients(msg_bak, client)
 		elif first == "MOVE":
 			p = msg.pop(0)
 			d = msg.pop(0)
-			move(p, d)
+#			move(p, d)
+			updateClients(msg_bak, client)
 		elif first == "SET":
 			obj = msg.pop(0)
 			msg.pop(0) 			# skip 'IN'
 			room = msg.pop(0)
 			msg.pop(0) 			# skip 'TO'
 			status = msg.pop(0)	
-			if status == "OPEN":
-				rooms[room].objects[obj].trigger("open")
-			elif status == "BREAK":
-				rooms[room].objects[obj].trigger("break")
+			if status in ["OPEN", "BREAK"]:
+				updateClients(msg_bak, client)
+				#rooms[room].objects[obj].trigger("open")
+			#elif status == "BREAK":
+				#rooms[room].objects[obj].trigger("break")
 		elif first == "DECREASE":
 			msg.pop(0)			# skip 'HEALTH'
 			msg.pop(0)			# skip 'OF'
 			p = msg.pop(0)
 			msg.pop(0) 			# skip 'BY'
 			amount = msg.pop(0)	
-			if p.lower() in ["wizard", "dark lord", "goblin"]:
+			updateClients(msg_bak, client)
+			"""if p.lower() in ["wizard", "dark lord", "goblin"]:
 				lord.attack(amount)
 			else:
 				players[p].lose_health(amount)
+				"""
 		else:
 			print("Unkown action in handleConnection()")
 			break

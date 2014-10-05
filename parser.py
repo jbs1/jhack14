@@ -5,36 +5,35 @@ fillwords = ["the", "with", "on", "that", "at"]
 tokens = []
 
 seed()
-room = rooms['opening']
 player = Player("")
+player.room = rooms['opening']
 lord = Entity("The Black Lord")
 
-def changeRoom(new_room):
-	global room
+def changeRoom(p, new_room):
 	if new_room == None:
 		print("You can't go there.")
 		return
-	if new_room.travers_desc==None:
+	if new_room.travers_desc == None:
 		print(new_room.desc)
-		room = new_room
-		for i in room.items:
-			print(room.items[i].desc)
-		for i in room.objects:
-			print(room.objects[i].desc)
-		for i in room.entities:
-			print(room.entities[i].desc)
+		p.room = new_room
+		for i in p.room.items:
+			print(p.room.items[i].desc)
+		for i in p.room.objects:
+			print(p.room.objects[i].desc)
+		for i in p.room.entities:
+			print(p.room.entities[i].desc)
 	else:
 		print(new_room.travers_desc)
 
-def move(direction):
+def move(p, direction):
 	if direction in ["north", "n"]:
-		changeRoom(room.north)
+		changeRoom(p, p.room.north)
 	elif direction in ["east", "e"]:
-		changeRoom(room.east)
+		changeRoom(p, p.room.east)
 	elif direction in ["south", "s"]:
-		changeRoom(room.south)
+		changeRoom(p, p.room.south)
 	elif direction in ["west", "w"]:
-		changeRoom(room.west)
+		changeRoom(p, p.room.west)
 
 def attack(target):
 	global player
@@ -82,16 +81,16 @@ def pItem(op):
 	while item in fillwords:
 		item = nextToken()
 
-	if item in room.items: 			# room item
+	if item in player.room.items: 			# room item
 		if op == "take":
-			player.take_item(room.remove_item(item)) 	# pick up
+			player.take_item(player.room.remove_item(item)) 	# pick up
 		elif op == "drop":
 			print("I can't drop stuff I didn't pick up.")
 	elif item in player.items:		# player inventory item
 		if op == "take":
 			print("I already have that.")
 		elif op == "drop":
-			room.add_item(player.drop_item(item)) 	# drop
+			player.room.add_item(player.drop_item(item)) 	# drop
 
 def pDirection():
 	direction = nextToken()
@@ -99,7 +98,7 @@ def pDirection():
 		direction = nextToken()
 
 	if direction in ["north", "east", "south", "west", "n", "e", "s", "w"]:
-		move(direction)
+		move(player, direction)
 	else:
 		print("I can't go there.")
 
@@ -117,7 +116,7 @@ def pAccess(op):
 	while obj in fillwords:
 		obj = nextToken()
 	if obj in room.objects.keys():
-		room.objects[obj].trigger(op)
+		player.room.objects[obj].trigger(op)
 	else:
 		print("Can't ", op, "that.")
 	
@@ -130,15 +129,15 @@ def pOperation():
 	if op == "go":
 		pDirection()
 	elif op in ["north", "east", "south", "west", "n", "e", "s", "w"]:
-		move(op)
+		move(player, op)
 	elif op in ["look", "l"]:
 		print(room.desc)
-		for i in room.items:
-			print(room.items[i].desc)
-		for i in room.objects:
-			print(room.objects[i].desc)
-		for i in room.entities:
-			print(room.entities[i].desc)
+		for i in player.room.items:
+			print(player.room.items[i].desc)
+		for i in player.room.objects:
+			print(player.room.objects[i].desc)
+		for i in player.room.entities:
+			print(player.room.entities[i].desc)
 	elif op == "read":
 		pObject(op)
 	elif op == "take":
