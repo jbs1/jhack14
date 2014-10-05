@@ -69,11 +69,11 @@ def pObject(op):
 	obj = nextToken()
 	while obj in fillwords:
 		obj = nextToken()
-	if not obj in room.objects:
+	if not obj in player.room.objects:
 		print("You can't ", op, " that.")
 		return
 	if op == "read":
-		room.inspect_obj(obj)
+		player.room.inspect_obj(obj)
 
 def pItem(op):
 	global player
@@ -89,10 +89,10 @@ def pItem(op):
 		if op == "take":
 			print("I already have that.")
 		elif op == "drop":
-			room.add_item(player.drop_item(item)) 	# drop
+			player.room.add_item(player.drop_item(item)) 	# drop
 	else:
 		print("What item?")
-			player.room.add_item(player.drop_item(item)) 	# drop
+		player.room.add_item(player.drop_item(item)) 	# drop
 
 def pDirection():
 	direction = nextToken()
@@ -117,7 +117,7 @@ def pAccess(op):
 	obj = nextToken()
 	while obj in fillwords:
 		obj = nextToken()
-	if obj in room.objects.keys():
+	if obj in player.room.objects.keys():
 		player.room.objects[obj].trigger(op)
 	else:
 		print("Can't ", op, "that.")
@@ -133,7 +133,7 @@ def pOperation():
 	elif op in ["north", "east", "south", "west", "n", "e", "s", "w"]:
 		move(player, op)
 	elif op in ["look", "l"]:
-		print(room.desc)
+		print(player.room.desc)
 		for i in player.room.items:
 			print(player.room.items[i].desc)
 		for i in player.room.objects:
