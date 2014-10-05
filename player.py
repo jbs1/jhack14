@@ -6,6 +6,7 @@ class Player:
 		self.health = 100
 		self.hitchance = 0.3
 		self.inventory = {}
+		self.room = None
 	def gethitc(self):
 		hc = self.hitchance
 		if inventory['Sword']:
