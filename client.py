@@ -25,7 +25,7 @@ def receive():
 def receiveFromServer():
 	while True:
 		msg = receive().strip().split()
-		if msg == "":
+		if not msg:
 			return
 		first = msg.pop(0)
 		if first == "CONNECT":

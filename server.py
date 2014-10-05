@@ -27,8 +27,10 @@ def receive(client):
 
 def handleConnection(client):
 	while True:
-		msg = receive(client).strip().split()
-		msg_bak = msg
+		msg_bak = receive(client).strip()
+		msg = msg_bak.split()
+		if not msg:
+			return
 		first = msg.pop(0)
 		if first == "CONNECT":
 			p = msg.pop(0)
