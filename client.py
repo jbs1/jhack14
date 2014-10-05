@@ -1,7 +1,6 @@
 from parser import *
 from classes import *
 from time import sleep
-import socket
 import signal
 import threading
 import sys
@@ -15,7 +14,6 @@ def signal_handler(signal, frame):
 signal.signal(signal.SIGINT, signal_handler)
 
 MSG_LEN = 4096
-sock = socket.socket()
 players = {}
 
 def send(msg):
@@ -27,7 +25,7 @@ def receive():
 def receiveFromServer():
 	while True:
 		msg = receive().strip().split()
-		if msg = None:
+		if msg == "":
 			return
 		first = msg.pop(0)
 		if first == "CONNECT":

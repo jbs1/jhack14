@@ -1,5 +1,6 @@
 from classes import *
 from random import seed, randint
+import socket
 
 fillwords = ["the", "with", "on", "that", "at"]
 tokens = []
@@ -8,6 +9,7 @@ seed()
 player = Player("")
 player.room = rooms['opening']
 lord = Entity("The Black Lord")
+sock = socket.socket()
 
 def changeRoom(p, new_room):
 	if new_room == None:
