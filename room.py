@@ -13,14 +13,12 @@ class Room:
 	
 	def add_item(self,item):		#add_item(player.drop_item('something'))
 		self.items[item.name]=item
-		print("You dropped",item.name)
 	
 	def open_access(self):
 		self.travers_desc=None
 
 
 	def remove_item(self,item):		#item=str
-		print("You took",item)
 		tmp = self.items[item]
 		del self.items[item]
 		return tmp
