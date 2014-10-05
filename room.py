@@ -1,6 +1,7 @@
 class Room:
 	"""docstring for room"""
-	def __init__(self, desc, items = {}, objects = {}, entities = {}, travers_desc=None, north=None, south=None, west=None, east=None):
+	def __init__(self, name, desc, items = {}, objects = {}, entities = {}, travers_desc=None, north=None, south=None, west=None, east=None):
+		self.name = name
 		self.desc = desc
 		self.items = items
 		self.objects = objects
