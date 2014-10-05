@@ -20,19 +20,22 @@ def receive():
 	return sock.recv(MSG_LEN).decode()
 
 def receiveFromServer():
+	global players
 	while True:
 		msg = receive().strip().split()
+		print("received: ", msg)
 		if not msg:
+			sock.close()
 			return
 		first = msg.pop(0)
 		if first == "CONNECT":
 			p = msg.pop(0)
 			players[p] = Player(p)
-			print("added player '", p, "'")
+			print("added player", p)
 		elif first == "DISCONNECT":
 			p = msg.pop(0)
 			del players[p]
-			print("removed player '", p, "'")
+			print("removed player", p)
 		elif first == "MOVE":
 			p = msg.pop(0)
 			d = msg.pop(0)
@@ -72,6 +75,8 @@ print("---------------------------------------")
 while player.name == "":
 	player.name = input("Please enter the name of your Character: ").strip()
 host = input("Enter Host Address: ")
+if host == "":
+	host = "10.81.63.17"
 sock.connect((host, 9555))
 send("CONNECT " + player.name)
 

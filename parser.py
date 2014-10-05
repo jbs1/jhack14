@@ -13,6 +13,7 @@ sock = socket.socket()
 
 def send(msg):
 	sock.send(msg.encode())
+	print("send: ", msg)
 
 def changeRoom(p, new_room):
 	if new_room == None:
