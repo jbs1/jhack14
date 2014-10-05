@@ -59,6 +59,11 @@ def handleConnection(client):
 			msg.pop(0) 			# skip 'BY'
 			amount = msg.pop(0)	
 			updateClients(msg_bak, client)
+		elif first == "COPY":
+			item = msg.pop(0)
+			msg.pop(0) 			# skip 'FROM'
+			player = msg.pop(0)
+			updateClients(msg_bak, client)
 		else:
 			print("Unkown action in handleConnection()")
 			break

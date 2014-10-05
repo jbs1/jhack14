@@ -3,10 +3,12 @@ from classes import *
 from time import sleep
 import socket
 import signal
+import threading
 import sys
 
 def signal_handler(signal, frame):
 	print("Shutting down..")
+	send("DISCONNECT " + player.name)
 	sock.close()
 	sys.exit(0)
 
@@ -16,10 +18,17 @@ MSG_LEN = 4096
 sock = socket.socket()
 players = {}
 
+def send(msg):
+	sock.send(msg.encode())
+
+def receive():
+	return sock.recv(MSG_LEN).decode()
+
 def receiveFromServer():
 	while True:
-		msg = receive(client).strip().split()
-		msg_bak = msg
+		msg = receive().strip().split()
+		if msg = None:
+			return
 		first = msg.pop(0)
 		if first == "CONNECT":
 			p = msg.pop(0)
@@ -53,6 +62,11 @@ def receiveFromServer():
 				lord.attack(amount)
 			else:
 				players[p].lose_health(amount)
+		elif first == "COPY":
+			item = msg.pop(0)
+			msg.pop(0) 			# skip 'FROM'
+			p = msg.pop(0)
+			player.take_item(players[p].inventory[item])
 		else:
 			print("Unkown action in handleConnection()")
 			break
@@ -62,10 +76,11 @@ print("---------------------------------------")
 
 while player.name == "":
 	player.name = input("Please enter the name of your Character: ").strip()
-
 host = input("Enter Host Address: ")
 sock.connect((host, 9555))
-sock.send(("CONNECT " + player.name).encode())
+send("CONNECT " + player.name)
+
+threading.Thread(target=receiveFromServer, daemon=True).start()
 
 print("---------------------------------------\n")
 print(player.room.desc)
