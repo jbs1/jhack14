@@ -1,7 +1,8 @@
 from classes import *
 
 sign = Object('sign', 'To the left is a sign.', None, 'The sign says: "Den of Evil"')
-opening = Room('You are standing in front of a cave.', {}, {'sign' : sign});
+test = Item('Test','a testin test amp', False)
+opening = Room('You are standing in front of a cave.', {'test':test}, {'sign' : sign});
 sign.set_room(opening)
 
 

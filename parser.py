@@ -92,8 +92,7 @@ def pItem(op):
 			player.room.add_item(player.drop_item(item)) 	# drop
 	else:
 		print("What item?")
-		player.room.add_item(player.drop_item(item)) 	# drop
-
+		
 def pDirection():
 	direction = nextToken()
 	while direction in fillwords:
