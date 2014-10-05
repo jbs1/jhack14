@@ -16,9 +16,6 @@ signal.signal(signal.SIGINT, signal_handler)
 MSG_LEN = 4096
 players = {}
 
-def send(msg):
-	sock.send(msg.encode())
-
 def receive():
 	return sock.recv(MSG_LEN).decode()
 

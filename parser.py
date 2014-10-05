@@ -11,6 +11,9 @@ player.room = rooms['opening']
 lord = Entity("The Black Lord")
 sock = socket.socket()
 
+def send(msg):
+	sock.send(msg.encode())
+
 def changeRoom(p, new_room):
 	if new_room == None:
 		print("You can't go there.")
@@ -120,6 +123,7 @@ def pAccess(op):
 		obj = nextToken()
 	if obj in player.room.objects.keys():
 		player.room.objects[obj].trigger(op)
+		send("SET " + obj + " IN " + player.room.name + " TO " + op.upper())
 	else:
 		print("Can't ", op, "that.")
 	
