@@ -15,8 +15,8 @@ class Room:
 	def open_access(self):
 		self.travers_desc=None
 
-	def add_item(self,item):		#add_item(player.drop_item('something'))
-		self.items[item.name]=item
+	"""def add_item(self,item):		#add_item(player.drop_item('something'))
+		self.items[item.name]=item"""
 	
 	def remove_item(self,item):		#item=str
 		tmp = self.items[item]

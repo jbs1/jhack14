@@ -1,8 +1,7 @@
 from classes import *
 
 sign = Object('sign', 'To the left is a sign.', None, 'The sign says: "Den of Evil"')
-test = Item('Test','a testin test amp', False)
-opening = Room('opening', 'You are standing in front of a cave.', {'test':test}, {'sign' : sign});
+opening = Room('opening', 'You are standing in front of a cave.', {}, {'sign' : sign});
 sign.set_room(opening)
 
 
@@ -27,7 +26,8 @@ opening.add_room("south", opening_s)
 
 shed.add_room("east",opening_s)
 
-cave_entrance = Room('cave_entrance', 'You are entering a long tunnel going north, that is dimly lit by the light of your lamp.', {}, {}, {},  'It is to dark to see anything.')
+enemy = Entity("bad dude")
+cave_entrance = Room('cave_entrance', 'You are entering a long tunnel going north, that is dimly lit by the light of your lamp.', {}, {}, {'enemy':enemy},  'It is to dark to see anything.')
 cave_entrance.add_room("south", opening)
 opening.add_room("north", cave_entrance)
 

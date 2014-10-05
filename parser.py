@@ -18,6 +18,11 @@ def changeRoom(p, new_room):
 	if new_room == None:
 		print("You can't go there.")
 		return
+	if new_room == cave_entrance:
+		checked=False
+		if lamp.data==True and checked==False:
+			cave_entrance.open_access()
+			checked=True
 	if new_room.travers_desc == None:
 		print(new_room.desc)
 		p.room = new_room
@@ -26,7 +31,7 @@ def changeRoom(p, new_room):
 		for i in p.room.objects:
 			print(p.room.objects[i].desc)
 		for i in p.room.entities:
-			print(p.room.entities[i].desc)
+			print(p.room.entities[i].name)
 	else:
 		print(new_room.travers_desc)
 
@@ -88,15 +93,16 @@ def pItem(op):
 	if item in player.room.items.keys(): 			# room item
 		if op == "take":
 			player.take_item(player.room.remove_item(item)) 	# pick up
-		elif op == "drop":
-			print("I can't drop stuff I didn't pick up.")
-	elif item in player.inventory.keys():		# player inventory item
+	else:
+		print("What item?")
+		#elif op == "drop":
+			#print("I can't drop stuff I didn't pick up.")
+	"""elif item in player.inventory.keys():		# player inventory item
 		if op == "take":
 			print("I already have that.")
 		elif op == "drop":
-			player.room.add_item(player.drop_item(item)) 	# drop
-	else:
-		print("What item?")
+			player.room.add_item(player.drop_item(item)) 	# drop"""
+
 		
 def pDirection():
 	direction = nextToken()
@@ -109,7 +115,7 @@ def pDirection():
 		print("I can't go there.")
 
 def pTarget():
-	target = nextToken()
+	target = nextToken()	
 	while target in fillwords:
 		target = nextToken()
 	if target in entities:
@@ -126,6 +132,7 @@ def pAccess(op):
 		send("SET " + obj + " IN " + player.room.name + " TO " + op.upper())
 	else:
 		print("Can't ", op, "that.")
+
 	
 
 def pOperation():
@@ -151,12 +158,16 @@ def pOperation():
 		pItem(op)
 	elif op == "attack":
 		pTarget()
-	elif op == "drop":
-		pItem(op)
+	#elif op == "drop":
+	#	pItem(op)
 	elif op in ["i", "inventory", "inv"]:
 		player.get_inv()
+	elif op in ["turnon", "light"]:
+		lamp.change_data(True)
 	elif op in ["break", "open"]:
 		pAccess(op)
+	elif op == "hc":
+		print("HC:",player.gethitc())
 	elif op == None:
 		pass
 	else:

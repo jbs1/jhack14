@@ -9,7 +9,8 @@ class Player:
 		self.room = None
 	def gethitc(self):
 		hc = self.hitchance
-		if inventory['Sword']:
+		tmp = self.inventory.get('Sword')
+		if tmp:
 			hc += 0.4
 		return hc
 	def get_inv(self):
@@ -19,15 +20,19 @@ class Player:
 			print("Your inventory:")
 			for i in self.inventory:
 				print(self.inventory[i].name)
+	def check_inv_item(self,item):
+		for i in self.inventory:
+			if self.inventory[i].name == item:
+				return True
 				
 	def take_item(self,item):#take_item(room.remove_item('something'))
 		self.inventory[item.name] = item
 		print("Taking",item.name)
-	def drop_item(self,item):#item=string
+	"""def drop_item(self,item):#item=string
 		print ("Dropping ",item)
 		tmp = self.inventory[item]
 		del self.inventory[item]
-		return tmp
+		return tmp"""
 	def lose_health(self,dmg):
 		self.health = self.health-dmg
 		print("You were hurt!")
