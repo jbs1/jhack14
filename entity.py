@@ -1,13 +1,16 @@
+
 class Entity:
 	"""docstring for entity"""
-	def __init__(self, name, health = 100,hitchance = 0.5):
+	def __init__(self, name, health=100, hitchance=0.5):
 		self.name = name
 		self.health = health
 		self.hitchance = hitchance
-	def attack(self,dmg):
-		self.health = self.health-dmg
+
+	def attack(self, dmg):
+		self.health = self.health - dmg
 		print(self.name,"was hit!")
 		check_health();
+	
 	def check_health(self):
 		if self.health == 100:
 			print(self.name,"is fully healed.")

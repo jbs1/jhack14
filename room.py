@@ -13,17 +13,17 @@ class Room:
 		self.travers_desc = travers_desc
 	
 	def open_access(self):
-		self.travers_desc=None
+		self.travers_desc = None
 
-	"""def add_item(self,item):		#add_item(player.drop_item('something'))
-		self.items[item.name]=item"""
+	def add_item(self,item):		#add_item(player.drop_item('something'))
+		self.items[item.name] = item
 	
-	def remove_item(self,item):		#item=str
+	def remove_item(self,item):		# string input 
 		tmp = self.items[item]
 		del self.items[item]
 		return tmp
 
-	def inspect_obj(self,obj):		#obj=string
+	def inspect_obj(self,obj):		# string input
 		print(self.objects[obj].data)
 
 	def add_room(self, direction, room, travers_desc=None):

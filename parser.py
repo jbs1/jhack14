@@ -8,12 +8,12 @@ tokens = []
 seed()
 player = Player("")
 player.room = rooms['opening']
-lord = Entity("The Black Lord")
+boss = Entity("The Black Lord")
 sock = socket.socket()
 
 def send(msg):
 	sock.send(msg.encode())
-	print("send: ", msg)
+	print("send:", msg)
 
 def changeRoom(p, new_room):
 	if new_room == None:
@@ -48,7 +48,7 @@ def move(p, direction):
 
 def attack(target):
 	global player
-	if randint(1,10) / 10 <= player.gethitc():
+	if randint(1,10) / 10 <= player.gethitchance():
 		if randint(1,3) == 2:
 			print("CRITICAL HIT!")
 			target.attack(45)
@@ -60,7 +60,7 @@ def defend(enemy):
 	if randint(1,10) / 10 <= enemy.hitchance:
 		if randint(1,3) == 2:
 			print("CRITICAL HIT!")
-			target.attack(35)
+			player.attack(35)
 		else:
 			target.attack(15)
 
@@ -91,6 +91,7 @@ def pItem(op):
 	item = nextToken()
 	while item in fillwords:
 		item = nextToken()
+
 	if item in player.room.items.keys(): 			# room item
 		if op == "take":
 			player.take_item(player.room.remove_item(item)) 	# pick up
@@ -104,7 +105,6 @@ def pItem(op):
 	else:
 		print("What item?")
 
-		
 def pDirection():
 	direction = nextToken()
 	while direction in fillwords:
@@ -119,8 +119,8 @@ def pTarget():
 	target = nextToken()	
 	while target in fillwords:
 		target = nextToken()
-	if target in entities:
-		attack(target)
+	if target in player.room.entities.keys():
+		attack(entities[target])
 	else:
 		print("I can't attack that.")
 
@@ -157,16 +157,16 @@ def pOperation():
 		pItem(op)
 	elif op == "attack":
 		pTarget()
-	#elif op == "drop":
-	#	pItem(op)
+	elif op == "drop":
+		pItem(op)
 	elif op in ["i", "inventory", "inv"]:
 		player.get_inv()
 	elif op in ["turnon", "light"]:
 		lamp.change_data(True)
 	elif op in ["break", "open"]:
 		pAccess(op)
-	elif op == "hc":
-		print("HC:",player.gethitc())
+	elif op == "hc":		# debug only
+		print("HC:", player.gethitchance())
 	elif op == None:
 		pass
 	else:

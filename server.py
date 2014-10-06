@@ -2,8 +2,7 @@ import socket
 import netifaces as ni
 import sys
 import signal
-from classes import *
-from threading import Thread
+#from threading import Thread 		# check if still needed
 import socketserver
 
 

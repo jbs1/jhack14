@@ -3,11 +3,12 @@ from classes import *
 from time import sleep
 import signal
 import threading
-import sys
+from sys import exit
 
 def signal_handler(signal, frame):
 	print("Shutting down..")
 	send("DISCONNECT " + player.name)
+	sleep(1)		# shutdown grace time
 	sock.close()
 	sys.exit(0)
 
@@ -25,22 +26,23 @@ def receiveFromServer():
 		msg = receive().strip().split()
 		print("received: ", msg)
 		if not msg:
+			print("Disconnected from server. Shutting down..")
 			sock.close()
-			return
-		first = msg.pop(0)
-		if first == "CONNECT":
+			exit(2)
+		token = msg.pop(0)
+		if token == "CONNECT":
 			p = msg.pop(0)
 			players[p] = Player(p)
 			print("added player", p)
-		elif first == "DISCONNECT":
+		elif token == "DISCONNECT":
 			p = msg.pop(0)
 			del players[p]
 			print("removed player", p)
-		elif first == "MOVE":
+		elif token == "MOVE":
 			p = msg.pop(0)
 			d = msg.pop(0)
 			move(p, d)
-		elif first == "SET":
+		elif token == "SET":
 			obj = msg.pop(0)
 			msg.pop(0) 			# skip 'IN'
 			room = msg.pop(0)
@@ -50,7 +52,7 @@ def receiveFromServer():
 				rooms[room].objects[obj].trigger("open")
 			elif status == "BREAK":
 				rooms[room].objects[obj].trigger("break")
-		elif first == "DECREASE":
+		elif token == "DECREASE":
 			msg.pop(0)			# skip 'HEALTH'
 			msg.pop(0)			# skip 'OF'
 			p = msg.pop(0)
@@ -60,13 +62,13 @@ def receiveFromServer():
 				lord.attack(amount)
 			else:
 				players[p].lose_health(amount)
-		elif first == "COPY":
+		elif token == "COPY":
 			item = msg.pop(0)
 			msg.pop(0) 			# skip 'FROM'
 			p = msg.pop(0)
 			player.take_item(players[p].inventory[item])
 		else:
-			print("Unkown action in handleConnection()")
+			print("Unkown action in receiveFromServer()")
 			break
 
 print("Textlive - a multiplayer text-adventure")
