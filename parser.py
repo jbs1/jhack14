@@ -20,10 +20,10 @@ def changeRoom(p, new_room):
 		print("You can't go there.")
 		return
 	if new_room == cave_entrance:
-		checked=False
-		if lamp.data==True and checked==False:
+		checked = False
+		if lamp.data == True and checked == False:
 			cave_entrance.open_access()
-			checked=True
+			checked = True
 	if new_room.travers_desc == None:
 		print(new_room.desc)
 		p.room = new_room
@@ -48,7 +48,7 @@ def move(p, direction):
 
 def attack(target):
 	global player
-	if randint(1,10)/10 <= player.gethitc():
+	if randint(1,10) / 10 <= player.gethitc():
 		if randint(1,3) == 2:
 			print("CRITICAL HIT!")
 			target.attack(45)
@@ -57,7 +57,7 @@ def attack(target):
 
 def defend(enemy):
 	global player
-	if randint(1,10)/10 <= enemy.hitchance:
+	if randint(1,10) / 10 <= enemy.hitchance:
 		if randint(1,3) == 2:
 			print("CRITICAL HIT!")
 			target.attack(35)
@@ -94,15 +94,15 @@ def pItem(op):
 	if item in player.room.items.keys(): 			# room item
 		if op == "take":
 			player.take_item(player.room.remove_item(item)) 	# pick up
-	else:
-		print("What item?")
-		#elif op == "drop":
-			#print("I can't drop stuff I didn't pick up.")
-	"""elif item in player.inventory.keys():		# player inventory item
+		elif op == "drop":
+			print("I can't drop stuff I didn't pick up.")
+	elif item in player.inventory.keys():			# player inventory item
 		if op == "take":
 			print("I already have that.")
 		elif op == "drop":
-			player.room.add_item(player.drop_item(item)) 	# drop"""
+			player.room.add_item(player.drop_item(item)) 		# drop
+	else:
+		print("What item?")
 
 		
 def pDirection():
@@ -133,8 +133,6 @@ def pAccess(op):
 		send("SET " + obj + " IN " + player.room.name + " TO " + op.upper())
 	else:
 		print("Can't ", op, "that.")
-
-	
 
 def pOperation():
 	op = nextToken()
