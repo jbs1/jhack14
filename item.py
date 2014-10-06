@@ -4,6 +4,7 @@ class Item:
 		self.name = name
 		self.desc = desc
 		self.data = data
+		
 	def change_data(self, newdata):
 		self.data = newdata
 	
