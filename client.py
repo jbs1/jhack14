@@ -3,6 +3,7 @@ from classes import *
 from time import sleep
 import signal
 import threading
+import netifaces as ni
 from sys import exit
 
 def signal_handler(signal, frame):
@@ -10,7 +11,7 @@ def signal_handler(signal, frame):
 	send("DISCONNECT " + player.name)
 	sleep(1)		# shutdown grace time
 	sock.close()
-	sys.exit(0)
+	exit(0)
 
 signal.signal(signal.SIGINT, signal_handler)
 
@@ -47,7 +48,7 @@ def receiveFromServer():
 			msg.pop(0) 			# skip 'IN'
 			room = msg.pop(0)
 			msg.pop(0) 			# skip 'TO'
-			status = msg.pop(0)	
+			status = msg.pop(0)
 			if status == "OPEN":
 				rooms[room].objects[obj].trigger("open")
 			elif status == "BREAK":
@@ -57,7 +58,7 @@ def receiveFromServer():
 			msg.pop(0)			# skip 'OF'
 			p = msg.pop(0)
 			msg.pop(0) 			# skip 'BY'
-			amount = msg.pop(0)	
+			amount = msg.pop(0)
 			if p.lower() in ["wizard", "dark lord", "goblin"]:
 				lord.attack(amount)
 			else:
@@ -74,14 +75,24 @@ def receiveFromServer():
 print("Textlive - a multiplayer text-adventure")
 print("---------------------------------------")
 
+# PLAYER NAME
 while player.name == "":
 	player.name = input("Please enter the name of your Character: ").strip()
+
+# HOST ADDRESS
 host = input("Enter Host Address: ")
-if host == "":
-	host = "10.81.63.17"
+if host == "":                          # use local address if none is specified
+    addrs = ni.ifaddresses('wlan0')
+    if ni.AF_INET in addrs.keys():
+        host = addrs[ni.AF_INET].pop(0)['addr']
+    else:
+        host = "127.0.0.1"
+
+# INIT SOCKET
 sock.connect((host, 9555))
 send("CONNECT " + player.name)
 
+# CREATE THREAD FOR SERVER COMMUNICATION
 threading.Thread(target=receiveFromServer, daemon=True).start()
 
 print("---------------------------------------\n")

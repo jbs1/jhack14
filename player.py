@@ -26,7 +26,7 @@ class Player:
 		for i in self.inventory:
 			if self.inventory[i].name == item:
 				return True
-				
+
 	def take_item(self, item): 			#take_item(room.remove_item('something'))
 		self.inventory[item.name] = item
 		print("Taking", item.name)
@@ -39,7 +39,7 @@ class Player:
 
 	def attack(self, dmg):
 		self.health = self.health - dmg
-		if(self.health > 0)
+		if self.health > 0:
 			print("You were hurt!")			# write own "checkhealth" for attack() and defend()
 		check_health()
 
