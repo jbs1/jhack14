@@ -2,13 +2,13 @@ import socket
 import netifaces as ni
 import sys
 import signal
-#from threading import Thread 		# check if still needed
+import threading
 import socketserver
 from player import *
 
 
 MSG_LEN = 4096
-clients = [] 	# client sockets
+clients = []	# client sockets
 players = {}    # player data
 
 """
@@ -34,11 +34,13 @@ def updateClient(msg, client):
 """
 def signal_handler(self, signal, frame=None):
 	global clients
+	global tserver
 	print("Shutting down..")
 	for client in clients:
 		client.close()
 	# TODO shutdown / close threadedTcpServer!
-	sys.exit(0)
+	tserver.shutdown()
+	tserver.socket.close()
 
 class Server(socketserver.BaseRequestHandler):
 	playername = ""
@@ -98,4 +100,11 @@ else:
     host = "127.0.0.1"
 print("Your address: ", host)
 
-tserver = ThreadedTCPServer((host, 9555), Server).serve_forever()
+# create new threaded server ..
+ThreadedTCPServer.allow_reuse_address = True
+tserver = ThreadedTCPServer((host, 9555), Server)
+
+# .. and run it in its own thread
+server_thread = threading.Thread(target=tserver.serve_forever)
+server_thread.start()
+
