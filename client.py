@@ -53,21 +53,21 @@ def receiveFromServer():
 				rooms[room].objects[obj].trigger("open")
 			elif status == "BREAK":
 				rooms[room].objects[obj].trigger("break")
-		elif token == "DECREASE":
+		elif token == "DECREASE":	#seperate for attack on player and attack on entitie?
 			msg.pop(0)			# skip 'HEALTH'
 			msg.pop(0)			# skip 'OF'
 			p = msg.pop(0)
 			msg.pop(0) 			# skip 'BY'
 			amount = msg.pop(0)
 			if p.lower() in ["wizard", "dark lord", "goblin"]:
-				lord.attack(amount)
+				enemy.lose_health(amount)
 			else:
 				players[p].lose_health(amount)
-		elif token == "COPY":
-			item = msg.pop(0)
-			msg.pop(0) 			# skip 'FROM'
-			p = msg.pop(0)
-			player.take_item(players[p].inventory[item])
+		# elif token == "COPY":==>UNKNOWN USE
+		# 	item = msg.pop(0)
+		# 	msg.pop(0) 			# skip 'FROM'
+		# 	p = msg.pop(0)
+		# 	player.take_item(players[p].inventory[item])
 		else:
 			print("Unkown action in receiveFromServer()")
 			break

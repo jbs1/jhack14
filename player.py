@@ -8,7 +8,7 @@ class Player:
 		inventory is dict of inv of player
 		"""
 		self.name = name
-		self.health = 150
+		self.health = 100
 		self.hitchance = 0.3
 		self.inventory = {}
 		self.room = None
@@ -16,11 +16,14 @@ class Player:
 	def gethitchance(self):
 		hc = self.hitchance
 		if self.check_inv_item("sword"):
-			hc += 0.4
+			hc = hc + 0.4
 		return hc
 
 	def get_room(self):
 		return self.room
+
+	def get_inv_list(self):
+		return list(self.inventory.keys())
 
 	def get_inv(self):
 		if self.inventory=={}:
@@ -45,11 +48,14 @@ class Player:
 		del self.inventory[item]
 		return item_b
 
-	def lose_health(self, dmg):
+	def lose_health(self, dmg, ch=False):
 		self.health = self.health - dmg
 		if self.health > 0:
-			print("You were hurt!")			# write own "checkhealth" for attack() and defend()
-		check_health()
+			if ch==True:
+				print("CRITICAL HIT: You were hurt badly!")
+			else:
+				print("You were hurt!")
+		self.check_health()
 
 	def gain_health(self, heal):
 		self.health = self.health + heal

@@ -1,4 +1,3 @@
-
 class Entity:
 	"""
 	NPC the player can interact with
@@ -15,10 +14,13 @@ class Entity:
 	def gethitchance(self):
 		return self.hitchance
 
-	def lose_health(self, dmg):
+	def lose_health(self, dmg, ch=False):
 		self.health = self.health - dmg
-		print(self.name,"was hit!")
-		check_health();
+		if ch==True:
+			print("CRITICAL HIT:",self.name,"was hurt badly!")
+		else:
+			print(self.name,"was hurt!")
+		self.check_health();
 
 	def gain_health(self, heal):
 		self.health = self.health + heal

@@ -14,7 +14,7 @@ opening_e.add_room("west", opening)
 opening.add_room("east", opening_e)
 
 
-lamp = Item('Lamp', 'An old and rusty oil lamp.', False)
+lamp = Item('Lamp', 'On the ground is an old and rusty oil lamp.', False)
 shed = Room('shed', 'In the dim light from outside you can see a small and dirty room.', {'lamp':lamp}, {}, {}, 'The broken door blocks the entrance')
 
 door=Object('door','The door barely hangs in its place', None, 'The door explodes under your force.', None, shed)
@@ -26,7 +26,7 @@ opening.add_room("south", opening_s)
 
 shed.add_room("east",opening_s)
 
-enemy = Entity("bad dude")
+enemy = Entity("thief","A filthy looking thief stands at the wall.")
 cave_entrance = Room('cave_entrance', 'You are entering a long tunnel going north, that is dimly lit by the light of your lamp.', {}, {}, {'enemy':enemy},  'It is to dark to see anything.')
 cave_entrance.add_room("south", opening)
 opening.add_room("north", cave_entrance)

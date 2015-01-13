@@ -1,3 +1,5 @@
+from player import *
+import parser #for accessing local player data ==> from parser import player does not work
 class Object:
 	"""
 	Object Class:
@@ -5,6 +7,7 @@ class Object:
 	Exp:
 	a door
 	"""
+
 	def __init__(self, name, desc, data=None, break_desc=None, open_desc=None, blocking=None):
 		"""
 		data is the content if any of 
@@ -35,7 +38,7 @@ class Object:
 			else:
 				print(self.break_desc)
 				self.blocking.open_access()
-				tmp_room = player.get_room()
+				tmp_room = parser.player.get_room()
 				del tmp_room.objects[self.name]#deletes itself here? maybe move > see above
 		elif op == "open": 
 			if self.open_desc == None:

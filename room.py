@@ -1,6 +1,13 @@
 class Room:
-	"""docstring for room"""
+	"""
+	Room Class:
+	items/object/entities are dicts with keys the same as the names
+	west/east/south/north are room objects
+	"""
 	def __init__(self, name, desc, items = {}, objects = {}, entities = {}, travers_desc=None, north=None, south=None, west=None, east=None):
+		"""
+		travers_desc: if not None the room object is blocked and the travers_desc will be printed until room is unblocked by other function
+		"""
 		self.name = name
 		self.desc = desc
 		self.items = items
@@ -17,6 +24,15 @@ class Room:
 
 	def add_item(self,item):		#add_item(player.drop_item('something'))
 		self.items[item.name] = item
+
+	def get_items(self):
+		return list(self.items.keys())
+
+	def get_objects(self):
+		return list(self.objects.keys())
+
+	def get_entities(self):
+		return list(self.entities.keys())
 	
 	def remove_item(self,item):		# string input 
 		tmp = self.items[item]
