@@ -14,6 +14,9 @@ class Player:
 			hc += 0.4
 		return hc
 
+	def get_room(self):
+		return self.room
+
 	def get_inv(self):
 		if self.inventory=={}:
 			print("Your inventory is empty. Get more stuff!")

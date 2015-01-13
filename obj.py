@@ -1,31 +1,42 @@
 class Object:
-	"""Object Class"""
-	def __init__(self, name, desc, room, data=None, break_d=None, open_d=None, blocking=None):
+	"""
+	Object Class:
+	Interacable object within the world.
+	Exp:
+	a door
+	"""
+	def __init__(self, name, desc, data=None, break_desc=None, open_desc=None, blocking=None):
+		"""
+		data is the content if any of 
+		break_desc/open_desc: if set obj is breakable/openable, also provied desc of the breaking/opening of obj
+		blocking shows the room this onject blocks
+		"""
 		self.name = name
 		self.desc = desc
-		self.room = room
+		#self.room = room <== not needed because its always the player room
 		self.data = data
-		self.break_d = break_d
-		self.open_d = open_d
+		self.break_desc = break_desc
+		self.open_desc = open_desc
 		self.blocking = blocking
 
 	def change_data(self, newdata):
 		self.data = newdata
 
-	def set_room(self, room):
-		self.room = room
+	# def set_room(self, room):<==same as above
+	# 	self.room = room
 
 	def trigger(self, op):		# move method to room class!!
 		if op == "break": 
-			if self.break_d == None:
+			if self.break_desc == None:
 				print("You can't break this")
 			else:
-				print(self.break_d)
-				self.blocking.open_access();
-				del self.room.objects[self.name];
+				print(self.break_desc)
+				self.blocking.open_access()
+				tmp_room = player.get_room()
+				del tmp_room.objects[self.name]#deletes itself here? maybe move > see above
 		elif op == "open": 
-			if self.open_d == None:
+			if self.open_desc == None:
 				print("You can't open this")
 			else:
-				print(self.open_d)
-				self.blocking.open_access();
+				print(self.open_desc)
+				self.blocking.open_access()
