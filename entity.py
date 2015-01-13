@@ -1,15 +1,28 @@
 
 class Entity:
-	"""docstring for entity"""
-	def __init__(self, name, health=100, hitchance=0.5):
+	"""
+	NPC the player can interact with
+	"""
+	def __init__(self, name, desc, health=100, hitchance=0.5):
+		"""
+		hitchance is the probabblitiy the entity is going to hit
+		"""
 		self.name = name
+		self.desc = desc
 		self.health = health
 		self.hitchance = hitchance
 
-	def attack(self, dmg):
+	def gethitchance(self):
+		return self.hitchance
+
+	def lose_health(self, dmg):
 		self.health = self.health - dmg
 		print(self.name,"was hit!")
 		check_health();
+
+	def gain_health(self, heal):
+		self.health = self.health + heal
+		print(self.name,"was healed!")
 	
 	def check_health(self):
 		if self.health == 100:

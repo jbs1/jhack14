@@ -26,6 +26,9 @@ class Object:
 	# 	self.room = room
 
 	def trigger(self, op):		# move method to room class!!
+		"""
+		is called as member function of the object it triggers
+		"""
 		if op == "break": 
 			if self.break_desc == None:
 				print("You can't break this")

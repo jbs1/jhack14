@@ -47,22 +47,28 @@ def move(p, direction):
 		changeRoom(p, p.room.west)
 
 def attack(target):
+	"""
+	player attacks target
+	"""
 	global player
 	if randint(1,10) / 10 <= player.gethitchance():
 		if randint(1,3) == 2:
 			print("CRITICAL HIT!")
-			target.attack(45)
+			target.lose_health(45)
 		else:
-			target.attack(20)
+			target.lose_health(20)
 
 def defend(enemy):
+	"""
+	player gets attacked by taget
+	"""
 	global player
-	if randint(1,10) / 10 <= enemy.hitchance:
+	if randint(1,10) / 10 <= enemy.gethitchance():
 		if randint(1,3) == 2:
 			print("CRITICAL HIT!")
 			player.attack(35)
 		else:
-			target.attack(15)
+			player.attack(15)
 
 def nextToken():
 	global tokens

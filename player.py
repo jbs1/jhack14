@@ -1,16 +1,21 @@
 class Player:
-	"""player class"""
+	"""
+	player class
+	"""
 	def __init__(self, name):
+		"""
+		hitchance is probability the player hits
+		inventory is dict of inv of player
+		"""
 		self.name = name
-		self.health = 100
+		self.health = 150
 		self.hitchance = 0.3
 		self.inventory = {}
 		self.room = None
 
 	def gethitchance(self):
 		hc = self.hitchance
-		tmp = self.inventory.get('Sword')
-		if tmp:
+		if self.check_inv_item("sword"):
 			hc += 0.4
 		return hc
 
@@ -40,7 +45,7 @@ class Player:
 		del self.inventory[item]
 		return item_b
 
-	def attack(self, dmg):
+	def lose_health(self, dmg):
 		self.health = self.health - dmg
 		if self.health > 0:
 			print("You were hurt!")			# write own "checkhealth" for attack() and defend()
