@@ -1,6 +1,7 @@
 from classes import *
 from random import seed, randint
 import socket
+from time import sleep
 from sys import exit
 
 fillwords = ["the", "with", "on", "that", "at", "go", "to"]
@@ -194,7 +195,9 @@ def pOperation():
 	elif op == "hc":		# debug only
 		print("HC:", player.gethitchance())
 	elif op == "exit":
-		exit()				#don't just exit==>sent DC command ==> MATT
+		send("DISCONNECT " + player.name)
+		sleep(2)
+		exit()
 	elif op == None:
 		pass
 	elif op == "debug":
