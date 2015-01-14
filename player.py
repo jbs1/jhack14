@@ -1,3 +1,4 @@
+from sys import exit
 class Player:
 	"""
 	player class
@@ -74,3 +75,6 @@ class Player:
 			print("You are as good as dead.")
 		elif self.health <= 0:
 			print("You are DEAD!")
+			print("GAME OVER!")
+			print("Terminating game!")
+			exit()				#don't just exit==>sent DC command ==> MATT

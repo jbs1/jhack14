@@ -1,3 +1,4 @@
+import parser #for accessing local player data ==> from parser import player does not work
 class Entity:
 	"""
 	NPC the player can interact with
@@ -39,3 +40,5 @@ class Entity:
 			print(self.name,"is nearly dead. Time for the final blow.")
 		elif self.health <= 0:
 			print(self.name,"was killed by you. Good job!")
+			tmp_room = parser.player.get_room()
+			tmp_room.remove_entity(self.name)

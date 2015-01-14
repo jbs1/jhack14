@@ -11,4 +11,7 @@ class Item:
 		
 	def change_data(self, newdata):
 		self.data = newdata
+
+	def update_name(self, name):
+		self.name = name
 	

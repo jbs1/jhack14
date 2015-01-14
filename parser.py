@@ -1,6 +1,7 @@
 from classes import *
 from random import seed, randint
 import socket
+from sys import exit
 
 fillwords = ["the", "with", "on", "that", "at", "go", "to"]
 tokens = []
@@ -187,10 +188,13 @@ def pOperation():
 		player.get_inv()
 	elif op in ["turnon", "light"]:
 		lamp.change_data(True)
+		lamp.update_name("Lamp[ON]")
 	elif op in ["break", "open"]:
 		pAccess(op)
 	elif op == "hc":		# debug only
 		print("HC:", player.gethitchance())
+	elif op == "exit":
+		exit()				#don't just exit==>sent DC command ==> MATT
 	elif op == None:
 		pass
 	elif op == "debug":

@@ -1,4 +1,3 @@
-from player import *
 import parser #for accessing local player data ==> from parser import player does not work
 class Object:
 	"""

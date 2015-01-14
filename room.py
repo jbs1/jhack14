@@ -39,6 +39,11 @@ class Room:
 		del self.items[item]
 		return tmp
 
+	def remove_entity(self,entity):		# string input 
+		tmp = self.entities[entity]
+		del self.entities[entity]
+		return tmp
+
 	def inspect_obj(self,obj):		# string input
 		print(self.objects[obj].data)
 
